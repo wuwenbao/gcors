@@ -14,5 +14,7 @@ func TestNew(t *testing.T) {
 		w.Write([]byte("cors"))
 	})
 
-	log.Fatal(http.ListenAndServe(":8080", New(mux)))
+	cors := NewCors(mux, WithOrigin("*"), WithMethods("*"), WithMethods("*"))
+
+	log.Fatal(http.ListenAndServe(":8080", cors))
 }

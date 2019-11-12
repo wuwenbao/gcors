@@ -15,15 +15,20 @@ import (
 )
 
 func main() {
-
 	mux := http.NewServeMux()
 
 	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("cors"))
 	})
 
-	log.Fatal(http.ListenAndServe(":8080", gocors.New(mux)))
-
+	cors := gocors.NewCors(
+		mux,
+		gocors.WithOrigin("*"),
+		gocors.WithMethods("*"),
+		gocors.WithHeaders("*"),
+	)
+	
+	log.Fatal(http.ListenAndServe(":8080", cors))
 }
 ```
 
@@ -41,13 +46,19 @@ import (
 )
 
 func main() {
-
 	router := mux.NewRouter()
 
 	router.Methods("GET").Path("/").HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("cors"))
 	})
 
-	log.Fatal(http.ListenAndServe(":8080", gocors.New(router)))
+	cors := gocors.NewCors(
+		router,
+		gocors.WithOrigin("*"),
+		gocors.WithMethods("*"),
+		gocors.WithHeaders("*"),
+	)
+	
+	log.Fatal(http.ListenAndServe(":8080", cors))
 }
 ```

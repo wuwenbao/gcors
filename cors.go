@@ -2,6 +2,7 @@ package gocors
 
 import (
 	"net/http"
+	"strings"
 )
 
 //cors 跨域
@@ -12,19 +13,21 @@ type cors struct {
 	allowHeaders string
 }
 
-func New(handler http.Handler) *cors {
+func NewCors(handler http.Handler, opts ...Option) http.Handler {
+	o := &options{
+		origin:  "*",
+		methods: []string{"*"},
+		headers: []string{"*"},
+	}
+	for _, opt := range opts {
+		opt.apply(o)
+	}
 	return &cors{
 		nextHandler:  handler,
-		allowOrigin:  "*",
-		allowMethods: "*",
-		allowHeaders: "",
+		allowOrigin:  o.origin,
+		allowMethods: strings.Join(o.methods, ", "),
+		allowHeaders: strings.Join(o.headers, ", "),
 	}
-}
-
-func (c *cors) Allow(origin, methods, headers string) {
-	c.allowOrigin = origin
-	c.allowMethods = methods
-	c.allowHeaders = headers
 }
 
 func (c *cors) ServeHTTP(w http.ResponseWriter, r *http.Request) {
