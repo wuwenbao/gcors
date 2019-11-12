@@ -14,7 +14,13 @@ func TestNew(t *testing.T) {
 		w.Write([]byte("cors"))
 	})
 
-	cors := NewCors(mux, WithOrigin("*"), WithMethods("*"), WithMethods("*"))
+	//cors := NewCors(mux) //默认参数为 *
+	cors := NewCors(
+		mux,
+		WithOrigin("*"),
+		WithMethods("*"),
+		WithMethods("*"),
+	)
 
 	log.Fatal(http.ListenAndServe(":8080", cors))
 }
