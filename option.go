@@ -1,4 +1,4 @@
-package gocors
+package gcors
 
 type Option interface {
 	apply(*options)

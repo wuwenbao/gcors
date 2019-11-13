@@ -1,4 +1,4 @@
-package gocors
+package gcors
 
 import (
 	"log"
@@ -14,8 +14,8 @@ func TestNew(t *testing.T) {
 		w.Write([]byte("cors"))
 	})
 
-	//cors := NewCors(mux) //默认参数为 *
-	cors := NewCors(
+	//cors := New(mux) //默认参数为 *
+	cors := New(
 		mux,
 		WithOrigin("*"),
 		WithMethods("*"),

@@ -1,4 +1,4 @@
-package gocors
+package gcors
 
 import (
 	"net/http"
@@ -13,7 +13,7 @@ type cors struct {
 	allowHeaders string
 }
 
-func NewCors(handler http.Handler, opts ...Option) http.Handler {
+func New(handler http.Handler, opts ...Option) http.Handler {
 	o := &options{
 		origin:  "*",
 		methods: []string{"*"},

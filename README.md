@@ -1,4 +1,4 @@
-# go-cors
+# gcors
 
 简单粗暴的解决GoWeb跨域
 
@@ -13,7 +13,7 @@ import (
     "log"
     "net/http"
     
-    "github.com/wuwenbao/gocors"
+    "github.com/wuwenbao/gcors"
 )
 
 func main() {
@@ -23,12 +23,12 @@ func main() {
         w.Write([]byte("cors"))
     })
     
-    //cors := NewCors(mux) //默认参数为 *
-    cors := gocors.NewCors(
+    //cors := gcors.New(mux) //默认参数为 *
+    cors := gcors.New(
         mux,
-        gocors.WithOrigin("*"),
-        gocors.WithMethods("*"),
-        gocors.WithHeaders("*"),
+        gcors.WithOrigin("*"),
+        gcors.WithMethods("*"),
+        gcors.WithHeaders("*"),
     )
     
     log.Fatal(http.ListenAndServe(":8080", cors))
@@ -45,7 +45,7 @@ import (
     "net/http"
     
     "github.com/gorilla/mux"
-    "github.com/wuwenbao/gocors"
+    "github.com/wuwenbao/gcors"
 )
 
 func main() {
@@ -55,12 +55,12 @@ func main() {
         w.Write([]byte("cors"))
     })
     
-    //cors := NewCors(mux) //默认参数为 *
-    cors := gocors.NewCors(
+    //cors := gcors.New(mux) //默认参数为 *
+    cors := gcors.NewCors(
         router,
-        gocors.WithOrigin("*"),
-        gocors.WithMethods("*"),
-        gocors.WithHeaders("*"),
+        gcors.WithOrigin("*"),
+        gcors.WithMethods("*"),
+        gcors.WithHeaders("*"),
     )
     
     log.Fatal(http.ListenAndServe(":8080", cors))
